@@ -1,0 +1,141 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{title}} | Mersal Cpanel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="DSC Akhbar El youm Academy" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'cpanel/images/favicon.png' %}">
+    <!-- Bootstrap Css -->
+    <link href="{% static 'cpanel/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'cpanel/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'cpanel/css/app-rtl.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'cpanel/css/main.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body data-sidebar="dark" class="main_font">
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="{% static 'cpanel/images/logo/logo-full-white.svg' %}" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'cpanel/images/logo/logo-arabic-white.svg' %}" alt="" height="40">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                </div>
+                <div class="d-flex">
+
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="" src="{% static 'cpanel/images/flags/ar.jpg' %}" alt="Header Language" height="16" style="margin-bottom: 5px">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <img src="{% static 'cpanel/images/flags/us.jpg' %}" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="dropdown d-none d-lg-inline-block ml-1">
+                        <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                            <i class="bx bx-fullscreen"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="{% static 'cpanel/images/users/avatar-male.jpg' %}" alt="Header Avatar">
+
+                            <span class="d-none d-xl-inline-block ml-1">المستخدم</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <!-- item-->
+                            <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle mr-1"></i> اﻟﻤﻠﻒ اﻟﺸﺨﺼﻲ</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>الخروج</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header> <!-- ========== Left Sidebar Start ========== -->
+        <div class="vertical-menu">
+            <div data-simplebar class="h-100">
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu list-unstyled main_font" id="side-menu">
+                        <li class="menu-title main_font_bold" >اﻟﻘﺎﺋﻤﺔ</li>
+                        <li>
+                            <a href="index.html" class="waves-effect">
+                                <i class="bx bx-home-circle"></i>
+                                <span>ﻟﻮﺣﺔ اﻟﺘﺤﻜﻢ اﻟﺮﺋﻴﺴﻴﺔ</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <!-- Your code Goes Here -->
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>
+                            document.write(new Date().getFullYear());
+                            </script> © Mersal
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-right d-none d-sm-block">
+                                Design &amp; Develop by <a href="#">DSC Akhbar El youm Academy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+    </div>
+    <!-- END layout-wrapper -->
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'cpanel/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'cpanel/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'cpanel/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'cpanel/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'cpanel/libs/node-waves/waves.min.js' %}"></script>
+    <!-- apexcharts -->
+    <script src="{% static 'cpanel/js/app.js' %}"></script>
+    <script src="{% static 'cpanel/libs/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'cpanel/js/pages/dashboard.init.js' %}"></script>
+
+</body>
+
+</html>
