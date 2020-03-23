@@ -1,0 +1,339 @@
+<div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+       <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+         <h4 class="mb-0 font-size-18">
+          User List
+         </h4>
+         <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+           <li class="breadcrumb-item">
+            <a href="javascript: void(0);">
+             Contacts
+            </a>
+           </li>
+           <li class="breadcrumb-item active">
+            User List
+           </li>
+          </ol>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- end page title -->
+      <div class="row">
+       <div class="col-lg-12">
+        <div class="card">
+         <div class="card-body">
+          <div>
+          <button class="btn btn-primary waves-effect waves-light" type="button">
+            <i class="fas fa-plus"> </i>
+             Add
+           </button>
+          <div class="col-3 float-right right">
+            <form class="app-search d-none d-lg-block">
+       <div class="position-relative">
+        <input class="form-control" placeholder="Search..." type="text">
+        <span class="bx bx-search-alt">
+        </span>
+       </div>
+      </form>
+
+          </div></div>
+
+          <div class="table-responsive">
+           <table class="table table-centered table-nowrap table-hover">
+            <thead class="thead-light">
+             <tr>
+              <th scope="col" style="width: 70px;">
+               #
+              </th>
+              <th scope="col">
+               Name
+              </th>
+              <th scope="col">
+               Email
+              </th>
+              <th scope="col">
+               Tags
+              </th>
+              <th scope="col">
+               Projects
+              </th>
+              <th scope="col">
+               Action
+              </th>
+             </tr>
+            </thead>
+            <tbody>
+             <tr>
+              <td>
+               <div class="avatar-xs">
+                <span class="avatar-title rounded-circle">
+                 D
+                </span>
+               </div>
+              </td>
+              <td>
+               <h5 class="font-size-14 mb-1">
+                <a class="text-dark" href="#">
+                 David McHenry
+                </a>
+               </h5>
+               <p class="text-muted mb-0">
+                UI/UX Designer
+               </p>
+              </td>
+              <td>
+               david@skote.com
+              </td>
+              <td>
+               <div>
+                <a class="badge badge-soft-primary font-size-11 m-1" href="#">
+                 Photoshop
+                </a>
+                <a class="badge badge-soft-primary font-size-11 m-1" href="#">
+                 illustrator
+                </a>
+               </div>
+              </td>
+              <td>
+               125
+              </td>
+              <td>
+               <ul class="list-inline font-size-20 contact-links mb-0">
+                <li class="list-inline-item px-2">
+                 <a data-placement="top" data-toggle="tooltip" href="" title="" data-original-title="Edit">
+                  <i class="bx bx-edit">
+                  </i>
+                 </a>
+                </li>
+                <li class="list-inline-item px-2">
+                 <a data-placement="top" data-toggle="tooltip" href="" title="" data-original-title="Delete">
+                  <i class="bx bx-trash">
+                  </i>
+                 </a>
+                </li>
+               </ul>
+              </td>
+             </tr>
+
+            </tbody>
+           </table>
+          </div>
+          <div class="row">
+           <div class="col-lg-12">
+            <ul class="pagination pagination-rounded justify-content-center mt-4">
+             <li class="page-item disabled">
+              <a class="page-link" href="#">
+               <i class="mdi mdi-chevron-left">
+               </i>
+              </a>
+             </li>
+             <li class="page-item">
+              <a class="page-link" href="#">
+               1
+              </a>
+             </li>
+             <li class="page-item active">
+              <a class="page-link" href="#">
+               2
+              </a>
+             </li>
+             <li class="page-item">
+              <a class="page-link" href="#">
+               3
+              </a>
+             </li>
+             <li class="page-item">
+              <a class="page-link" href="#">
+               4
+              </a>
+             </li>
+             <li class="page-item">
+              <a class="page-link" href="#">
+               5
+              </a>
+             </li>
+             <li class="page-item">
+              <a class="page-link" href="#">
+               <i class="mdi mdi-chevron-right">
+               </i>
+              </a>
+             </li>
+            </ul>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends "cpanel/base.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                Add Case
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:dashboard' %}">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Add Case
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+<div class="card">
+         <div class="card-body">
+          <h4 class="card-title">
+           Add Case Data
+          </h4>
+          <br />
+          <form method="POST" enctype="multipart/form-data" class="custom-validation" novalidate="">
+
+            <!-- Your Field Goes Here -->
+
+           <div class="form-group mb-0 text-center">
+            <div>
+             <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+              Submit
+             </button>
+             <button class="btn btn-secondary waves-effect" type="reset">
+              Cancel
+             </button>
+            </div>
+           </div>
+          </form>
+         </div>
+        </div>
+    </div></div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                Form Mask
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript: void(0);">
+                            Forms
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Form Mask
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">
+                    Example
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+</div>

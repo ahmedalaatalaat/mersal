@@ -1,0 +1,197 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                تعديل المتبرع
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_donor_list' %}">
+                            قائمة المتبرعين
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        تعديل المتبرع
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    تعديل بيانات المتبرع
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            الاسم
+                        </label>
+                        <input class="form-control" placeholder="الاسم" required="" type="text" name='name' maxlength="20" value="{{donor.name}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            البريد الالكتروني
+                        </label>
+                        <div>
+                            <input class="form-control" parsley-type="email" placeholder="البريد الالكتروني" required="" type="email" name="username" value="{{donor.user.username}}" readonly="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            كلمة المرور
+                        </label>
+                        <div>
+                            <input class="form-control" placeholder="كلمة المرور القديمة" type="password" name='old_password' minlength="8">
+                        </div>
+                        <div class="mt-2">
+                            <input class="form-control" id="pass2" placeholder="كلمة المرور الجديدة" type="password" name='password' minlength="8">
+                        </div>
+                        <div class="mt-2">
+                            <input class="form-control" data-parsley-equalto="#pass2" placeholder="اعادة كتابة كلمة المرور الجديدة" type="password" minlength="8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المدينة #1
+                        </label>
+                        <input class="form-control" placeholder="المدينة #1" type="text" maxlength="12" name="city_1" value="{{donor.city_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            القرية #1
+                        </label>
+                        <input class="form-control" placeholder="القرية #1" type="text" maxlength="12" name="country_1" value="{{donor.country_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المنطقة #1
+                        </label>
+                        <input class="form-control" placeholder="المنطقة #1" type="text" maxlength="6" name="area_1" value="{{donor.area_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            رقم المبني #1
+                        </label>
+                        <input class="form-control" placeholder="رقم المبني #1" type="text" maxlength="6" name="building_1" value="{{donor.building_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الشارع #1
+                        </label>
+                        <input class="form-control" placeholder="الشارع #1" type="text" maxlength="30" name="street_1" value="{{donor.street_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            رقم الشقة #1
+                        </label>
+                        <input class="form-control" placeholder="رقم الشقة #1" type="text" maxlength="6" name="apartment_no_1" value="{{donor.apartment_no_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الطابق #1
+                        </label>
+                        <input class="form-control" placeholder="الطابق #1" type="text" maxlength="6" name="floor_1" value="{{donor.floor_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المحمول #1
+                        </label>
+                        <input class="form-control" placeholder="المحمول #1" type="text" maxlength="16" name="phone_1" value="{{donor.phone_1}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            العنوان #1
+                        </label>
+                        <div>
+                            <textarea class="form-control" rows="5" name="address_1" placeholder="العنوان #1">{{donor.address_1}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المدينة #2
+                        </label>
+                        <input class="form-control" placeholder="المدينة #2" type="text" maxlength="12" name="city_2" value="{{donor.city_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            القرية #2
+                        </label>
+                        <input class="form-control" placeholder="القرية #2" type="text" maxlength="12" name="country_2" value="{{donor.country_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المنطقة #2
+                        </label>
+                        <input class="form-control" placeholder="المنطقة #2" type="text" maxlength="6" name="area_2" value="{{donor.area_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            رقم المبني #2
+                        </label>
+                        <input class="form-control" placeholder="رقم المبني #2" type="text" maxlength="6" name="building_2" value="{{donor.building_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الشارع #2
+                        </label>
+                        <input class="form-control" placeholder="الشارع #2" type="text" maxlength="30" name="street_2" value="{{donor.street_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            رقم الشقة #2
+                        </label>
+                        <input class="form-control" placeholder="رقم الشقة #2" type="text" maxlength="6" name="apartment_no_2" value="{{donor.apartment_no_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الطابق #2
+                        </label>
+                        <input class="form-control" placeholder="الطابق #2" type="text" maxlength="6" name="floor_2" value="{{donor.floor_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المحمول #2
+                        </label>
+                        <input class="form-control" placeholder="المحمول #2" type="text" maxlength="16" name="phone_2" value="{{donor.phone_2}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            العنوان #2
+                        </label>
+                        <div>
+                            <textarea class="form-control" rows="5" name="address_2" placeholder="العنوان #2">{{donor.address_2}}</textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                الغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+               تعديل التبرع
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_donation_list' %}">
+                            قائمة التبرعات
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        تعديل التبرع
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    تعديل بيانات التبرع
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            البريد الالكتروني
+                        </label>
+                        <input class="form-control" placeholder="البريد الالكتروني" required="" type="text" name='donor' value='{{donation.donor.user.username}}' readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            حالة التبرع
+                        </label>
+                        <select class="form-control" name="contribution" data-parsley-required="true">
+                            {% for contribution in contributions %}
+                            {% if donation.contribution.id == contribution.id %}
+                            <option value="{{contribution.id}}" selected>
+                                {{contribution.get_name}}
+                            </option>
+                            {% else %}
+                            <option value="{{contribution.id}}">
+                                {{contribution.get_name}}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            النشاط الخيري
+                        </label>
+                        <select class="form-control" name="charitable_activity">
+                            {% for charitable_activity in charitable_activities %}
+                            {% if donation.charitable_activity.id == charitable_activity.id %}
+                            <option value="{{charitable_activity.id}}" selected>
+                                {{charitable_activity.name}}
+                            </option>
+                            {% else %}
+                            <option value="{{charitable_activity.id}}">
+                                {{charitable_activity.name}}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            مبلغ التبرع
+                        </label>
+                        <input class="form-control" placeholder="مبلغ التبرع" required="" type="number" min="0" name='amount' value="{{donation.amount}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            رقم العنوان
+                        </label>
+                        <select class="form-control" name="address_no">
+                            <option value="1" {% if donation.address_no == '1' %}selected{% endif %}>
+                                العنوان #1
+                            </option>
+                            <option value="2" {% if donation.address_no == '2' %}selected{% endif %}>
+                                العنوان #2
+                            </option>
+                        </select>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                الغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,126 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                عرض التبرع
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_donation_list' %}">
+                            قائمة التبرعات
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        عرض التبرع
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    عرض بيانات التبرع
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            اسم المتبرع
+                        </label>
+                        <input class="form-control" required="" type="text" value='{{donation.donor.name}}' readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                           البريد الالكتروني للمتبرع
+                        </label>
+                        <input class="form-control" required="" type="text" value='{{donation.donor.user.username}}' readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            حالة التبرع
+                        </label>
+                        <input class="form-control" required="" type="text" value='{{donation.contribution.get_name}}' readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            النشاط الخيري
+                        </label>
+                        <input class="form-control" required="" type="text" value='{{donation.charitable_activity.name}}' readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            مبلغ التبرع
+                        </label>
+                        <input class="form-control" placeholder="Donation Amount" required="" type="number" min="0" value="{{donation.amount}}" readonly="">
+                    </div>
+                    {% with address=donation.get_address_ar %}
+                    {% for key, value in address.items%}
+                    {% if donation.address_no in key %}
+                        <div class="form-group">
+                        <label>
+                            {{key|label}}
+                        </label>
+                        <input class="form-control" type="text" value="{{value}}" readonly="">
+                    </div>
+                    {% endif %}
+
+                    {% endfor %}
+                    {% endwith %}
+                    <div class="form-group">
+                        <label>
+                            المندوب المعين
+                        </label>
+                        <select class="form-control" name="assigned_agent">
+                            <option selected="" disabled="disabled"> اختر المندوب</option>
+                            {% for agent in agents %}
+                            {% if  donation.assigned_agent.id == agent.id %}
+                                <option value="{{agent.id}}" selected="">
+                                {{agent.user.username}}
+                                </option>
+                            {% else %}
+                            <option value="{{agent.id}}">
+                                {{agent.user.username}}
+                                </option>
+                            {% endif %}
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group custom-control custom-checkbox">
+                        <input class="custom-control-input" id="collected" type="checkbox" name="collected" {% if donation.collected%}checked{% endif %}>
+                        <label class="custom-control-label" for="collected">
+                            جمع المال
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                الغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,133 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                قائمة الاقسام الرئيسية
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        قائمة الاقسام الرئيسية
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a class="btn btn-primary waves-effect waves-light" type="button" style="color: white" href="{% url 'cpanel:ar_main_category_add' %}">
+                        <i class="fas fa-plus"> </i>
+                        إضافة
+                    </a>
+                    <form method="POST" enctype="multipart/form-data" style="display: inline">{% csrf_token %}
+                        <button class="btn btn-success waves-effect waves-light" type="submit" style="color: white">
+                            <input type="file" name="file" accept=".xlsx,.xls">
+                            <i class="fas fa-cloud-upload-alt"> </i>
+                            استيراد من ملف اكسل
+                        </button>
+                    </form>
+                    <div class="col-3 float-right right">
+                        <form class="app-search d-none d-lg-block" method="GET">
+                            <div class="position-relative">
+                                <input class="form-control" placeholder="بحث..." type="text" name="search" value="{{request.GET.search}}">
+                                <span class="bx bx-search-alt">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 70px;">
+                                    #
+                                </th>
+                                <th scope="col">
+                                    الاسم
+                                </th>
+                                <th scope="col">
+                                    الاجراءات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for main_category in main_categories %}
+                            <tr id="{{main_category.id}}">
+                                <td>
+                                    <div class="avatar-xs">
+                                        {{main_category.id}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="rounded-circle avatar-xs" src="{{main_category.image.url}}" style="display: inline">
+                                    <h5 class="font-size-14 mb-1" style="display: inline">
+                                        {{main_category.name}}
+                                    </h5>
+                                </td>
+                                <td>
+                                    <ul class="list-inline font-size-20 contact-links mb-0">
+                                        <li class="list-inline-item px-2">
+                                            <a data-placement="top" data-toggle="tooltip" href="{% url 'cpanel:ar_main_category_edit' main_category.id%}" title="" data-original-title="تعديل">
+                                                <i class="bx bx-edit">
+                                                </i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item px-2">
+                                            <a data-placement="top" data-toggle="tooltip" onclick="delete_item({{main_category.id}})" title="" data-original-title="حذف">
+                                                <i class="bx bx-trash">
+                                                </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="pagination pagination-rounded justify-content-center mt-4">
+                            <li class="page-item {% if current_page|into_int == 1|into_int %}disabled{% endif %}">
+                                <a class="page-link" href="{% if '?search' in  request.get_full_path%}?search={{request.GET.search}}&page={{current_page|sub:1}}{% else %}?page={{current_page|sub:1}}{% endif %}">
+                                    <i class="mdi mdi-chevron-right">
+                                    </i>
+                                </a>
+                            </li>
+                            {% for x in current_page|my_pages:pages %}
+                            <li class="page-item {% if  x|into_str == current_page|into_str %}active{% endif %}">
+                                <a class="page-link" href="{% if '?search' in  request.get_full_path%}?search={{request.GET.search}}&page={{x}}{% else %}?page={{x}}{% endif %}">
+                                    {{x}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            <li class="page-item {% if current_page|add:1 > pages|into_int %}disabled{% endif %}">
+                                <a class="page-link" href="{% if '?search' in  request.get_full_path%}?search={{request.GET.search}}&page={{current_page|add:1}}{% else %}?page={{current_page|add:1}}{% endif %}">
+                                    <i class="mdi mdi-chevron-left">
+                                    </i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

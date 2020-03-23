@@ -1,0 +1,85 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                إضافة مشروع
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_project_list' %}">
+                            قائمة المشاريع
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        إضافة مشروع
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    إضافة بيانات المشروع
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            اسم المشروع
+                        </label>
+                        <input class="form-control" placeholder="اسم المشروع" required="" type="text" name='name' maxlength="64">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            المبلغ
+                        </label>
+                        <div>
+                            <input class="form-control" data-parsley-type="number" placeholder="المبلغ" required="" type="text" name="amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الوصف
+                        </label>
+                        <div>
+                            <textarea class="form-control" required rows="5" name="description" placeholder="الوصف..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group custom-control custom-checkbox">
+                        <input class="custom-control-input" id="is_urgent" type="checkbox" name="is_urgent">
+                        <label class="custom-control-label" for="is_urgent">
+                            عاجل
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                إالغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
