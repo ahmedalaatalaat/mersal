@@ -779,3 +779,20 @@ def lock_screen(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+# Error views
+def error_400(request, exception):
+    return render(request, 'cpanel/Error/400.html')
+
+
+def error_403(request, exception):
+    return render(request, 'cpanel/Error/403.html')
+
+
+def error_404(request, exception):
+    return render(request, 'cpanel/Error/404.html')
+
+
+def error_500(request):
+    return render(request, 'cpanel/Error/500.html')
