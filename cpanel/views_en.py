@@ -718,7 +718,20 @@ def login_view(request):
 
 
 def lock_screen(request):
-    return render(request, 'cpanel/Auth/lock-screen.html')
+    form = AuthenticationForm()
+    if request.method == 'GET':
+        logout(request)
+
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, user)
+            return redirect('cpanel:dashboard')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'cpanel/Auth/lock-screen.html', context)
 
 
 def logout_view(request):
