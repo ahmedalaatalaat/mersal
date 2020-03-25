@@ -10,7 +10,10 @@ from .from_excel import *
 
 # Main Pages
 def dashboard(request):
-    pass
+    context = {
+        'title': 'Dashboard',
+    }
+    return render(request, 'cpanel/base-rtl.html', context)
 
 
 def mainRTL(request):
@@ -663,3 +666,16 @@ def donation_view(request, id):
         'donation': donation
     }
     return render(request, 'cpanel/Donations/donation_view_ar.html', context)
+
+
+def login_view(request):
+    return render(request, 'cpanel/Auth/login_ar.html')
+
+
+def lock_screen(request):
+    return render(request, 'cpanel/Auth/lock-screen_ar.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('ar_login')

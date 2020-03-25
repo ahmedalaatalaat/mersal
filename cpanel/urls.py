@@ -4,10 +4,10 @@ from . import views_en, views_ar
 app_name = 'cpanel'
 
 urlpatterns = [
-    path('', views_en.main, name="main"),
-    path('ar/', views_ar.mainRTL, name="mainrtl"),
-    path('dashboard/', views_en.dashboard, name="dashboard"),
-    path('ar/dashboard/', views_ar.dashboard, name="ar_dashboard"),
+    # path('', views_en.main, name="main"),
+    # path('ar/', views_ar.mainRTL, name="mainrtl"),
+    path('', views_en.dashboard, name="dashboard"),
+    path('ar/', views_ar.dashboard, name="ar_dashboard"),
     # Cases
     path('case_add/', views_en.case_add, name="case_add"),
     path('case_edit/<id>/', views_en.case_edit, name="case_edit"),
@@ -59,7 +59,9 @@ urlpatterns = [
     path('ar/donation_edit/<id>/', views_ar.donation_edit, name="ar_donation_edit"),
     path('ar/donations/', views_ar.donation_list, name="ar_donation_list"),
     path('ar/donation_view/<id>/', views_ar.donation_view, name="ar_donation_view"),
-    # Develope
-    path('inputs/', views_en.inputs, name="inputs"),
-
+    # Auth
+    path('lock_screen/', views_en.lock_screen, name="lock_screen"),
+    path('ar/lock_screen/', views_ar.lock_screen, name="ar_lock_screen"),
+    path('logout/', views_en.logout_view, name="logout"),
+    path('ar/logout/', views_ar.logout_view, name="ar_logout"),
 ]

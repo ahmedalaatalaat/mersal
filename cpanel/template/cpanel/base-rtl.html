@@ -75,7 +75,7 @@
                             <img class="rounded-circle header-profile-user"
                                 src="{% static 'cpanel/images/users/avatar-male.jpg' %}" alt="Header Avatar">
 
-                            <span class="d-none d-xl-inline-block ml-1">المستخدم</span>
+                            <span class="d-none d-xl-inline-block ml-1">{{user.username}}</span>
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 
                         </button>
@@ -83,8 +83,9 @@
                             <!-- item-->
                             <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle mr-1"></i>
                                 اﻟﻤﻠﻒ اﻟﺸﺨﺼﻲ</a>
+                            <a class="dropdown-item" href="{% url 'cpanel:ar_lock_screen' %}"><i class="bx bx-lock font-size-16 align-middle mr-1"></i>قفل الشاشة</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i
+                            <a class="dropdown-item text-danger" href="{% url 'cpanel:ar_logout' %}"><i
                                     class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>الخروج</a>
                         </div>
                     </div>

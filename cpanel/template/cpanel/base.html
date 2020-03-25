@@ -47,23 +47,6 @@
                     </button>
                 </div>
                 <div class="d-flex">
-                    <div class="dropdown d-inline-block d-lg-none ml-2">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="mdi mdi-magnify"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="page-header-search-dropdown">
-                            <form class="p-3">
-                                <div class="form-group m-0">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="" src="{% static 'cpanel/images/flags/us.jpg' %}" alt="Header Language" height="16">
@@ -83,14 +66,15 @@
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="rounded-circle header-profile-user" src="{% static 'cpanel/images/users/avatar-male.jpg' %}" alt="Header Avatar">
-                            <span class="d-none d-xl-inline-block ml-1">User</span>
+                            <span class="d-none d-xl-inline-block ml-1">{{user.username}}</span>
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <!-- item-->
                             <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle mr-1"></i> Profile</a>
+                            <a class="dropdown-item" href="{% url 'cpanel:lock_screen' %}"><i class="bx bx-lock font-size-16 align-middle mr-1"></i>Lockscreen</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>Logout</a>
+                            <a class="dropdown-item text-danger" href="{% url 'cpanel:logout' %}"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>Logout</a>
                         </div>
                     </div>
                 </div>
