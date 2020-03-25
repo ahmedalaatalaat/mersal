@@ -1,0 +1,80 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                تعديل الملف الشخصي
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        تعديل الملف الشخصي
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    تعديل البيانات الملف الشخصي
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            اسم المستخدم
+                        </label>
+                        <input class="form-control" placeholder="اسم المستخدم" required="" type="text" name="username" value="{{user.username}}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            كلمة المرور القديمة
+                        </label>
+                        <div>
+                            <input class="form-control" placeholder="كلمة المرور القديمة" type="password" name='old_password' minlength="8">
+                        </div>
+                        <div class="mt-2">
+                            <input class="form-control" id="pass2" placeholder="كلمة المرور الجديدة" type="password" name='password' minlength="8">
+                        </div>
+                        <div class="mt-2">
+                            <input class="form-control" data-parsley-equalto="#pass2" placeholder="اعادة كتابة كلمة المرور الجديدة" type="password" minlength="8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            البريد الالكتروني
+                        </label>
+                        <div>
+                            <input class="form-control" parsley-type="email" placeholder="البريد الالكتروني" required="" type="email" name="email" value="{{user.email}}">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                الغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

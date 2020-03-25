@@ -1,0 +1,177 @@
+{% extends "cpanel/base.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                DASHBOARD
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">
+                        Welcome to Dashboard
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Agents
+                        </p>
+                        <h4 class="mb-0">
+                            {{agents}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bxs-user-badge font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Cases
+                        </p>
+                        <h4 class="mb-0">
+                            {{cases}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bx-hash font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Projects
+                        </p>
+                        <h4 class="mb-0">
+                            {{projects}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bx-briefcase-alt-2 font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Donations
+                        </p>
+                        <h4 class="mb-0">
+                            {{donations}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bx-money font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Donations This Month
+                        </p>
+                        <h4 class="mb-0">
+                            {{this_month_donation}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bx-dollar font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            Donors
+                        </p>
+                        <h4 class="mb-0">
+                            {{donors}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bx-group font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <p class="text-muted font-weight-medium">
+                            New Donors This Month
+                        </p>
+                        <h4 class="mb-0">
+                            {{new_donors_this_month}}
+                        </h4>
+                    </div>
+                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                        <span class="avatar-title">
+                            <i class="bx bxs-user-plus font-size-24">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

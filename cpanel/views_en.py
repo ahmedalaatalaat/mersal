@@ -10,15 +10,24 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from datetime import datetime
 
 
 # Main Pages
 @login_required(login_url='login')
 def dashboard(request):
+    current_month = datetime.now().month
     context = {
         'title': 'Dashboard',
+        'agents': Agent.objects.all().count(),
+        'cases': Case.objects.all().count(),
+        'projects': Project.objects.all().count(),
+        'donations': Donation.objects.all().count(),
+        'this_month_donation': Donation.objects.filter(date__month=current_month).count(),
+        'donors': Donor.objects.all().count(),
+        'new_donors_this_month': Donor.objects.filter(join_date__month=current_month).count(),
     }
-    return render(request, 'cpanel/base.html', context)
+    return render(request, 'cpanel/Others/dashboard.html', context)
 
 
 @login_required(login_url='login')
@@ -27,6 +36,27 @@ def main(request):
         'title': 'base',
     }
     return render(request, 'cpanel/base.html', context)
+
+
+@login_required(login_url='login')
+def profile(request):
+    user = request.user
+    if request.is_ajax():
+        if request.method == 'POST':
+            user = get_object_or_none(User, username=request.POST.get('username'))
+            user.username = request.POST.get('username')
+            user.email = request.POST.get('email')
+
+            if request.POST.get('password'):
+                if user.check_password(request.POST.get('old_password')):
+                    user.set_password(request.POST.get('password'))
+
+        user.save()
+    context = {
+        'user': user,
+        'title': 'Profile'
+    }
+    return render(request, 'cpanel/Others/profile.html', context)
 
 
 # Case Views

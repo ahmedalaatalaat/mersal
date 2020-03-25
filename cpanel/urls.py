@@ -64,4 +64,7 @@ urlpatterns = [
     path('ar/lock_screen/', views_ar.lock_screen, name="ar_lock_screen"),
     path('logout/', views_en.logout_view, name="logout"),
     path('ar/logout/', views_ar.logout_view, name="ar_logout"),
+    # Other
+    path('profile/', views_en.profile, name="profile"),
+    path('ar/profile/', views_ar.profile, name="ar_profile"),
 ]
