@@ -25,12 +25,7 @@
 </head>
 
 <body>
-    <div class="home-btn d-none d-sm-block">
-        <button class="btn text-dark" href="index.html" onclick="to_english()">
-            <img class="" src="{% static 'cpanel/images/flags/us.jpg' %}" alt="Header Language" height="18">
-        </button>
-    </div>
-    <div class="account-pages my-5 pt-sm-5">
+    <div class="account-pages my-2 pt-sm-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
@@ -67,9 +62,10 @@
                                     <div class="user-thumb text-center mb-4">
                                         <img alt="thumbnail" class="rounded-circle img-thumbnail avatar-md" src="{% static 'cpanel/images/users/avatar-male.jpg' %}" />
                                         <h5 class="font-size-15 mt-3">
-                                            Maria Laird
+                                            {{user.username}}
                                         </h5>
                                     </div>
+                                    <input type="hidden" name="username" value="{{user.username}}">
                                     <div class="form-group">
                                         <label for="userpassword">
                                             كلمة المرور
@@ -90,7 +86,7 @@
                     <div class="mt-5 text-center">
                         <p>
                             ليس انت ؟ الرجوع
-                            <a class="font-weight-medium text-primary" href="{% url 'cpanel:ar_login' %}">
+                            <a class="font-weight-medium text-primary" href="{% url 'ar_login' %}">
                                 تسجيل الدخول
                             </a>
                         </p>

@@ -214,7 +214,8 @@ def main_category_add(request):
     if request.is_ajax():
         if request.method == 'POST':
             main_category = Main_Category.objects.create(
-                name=request.POST.get('name')
+                english_name=request.POST.get('english_name'),
+                arabic_name=request.POST.get('arabic_name')
             )
             if request.FILES.get('image'):
                 main_category.image = request.FILES.get('image')
@@ -231,7 +232,9 @@ def main_category_edit(request, id):
     main_category = get_object_or_404(Main_Category, id=id)
     if request.is_ajax():
         if request.method == 'POST':
-            main_category.name = request.POST.get('name')
+            main_category.english_name = request.POST.get('english_name')
+            main_category.arabic_name = request.POST.get('arabic_name')
+
             if request.FILES.get('image'):
                 main_category.image = request.FILES.get('image')
 
@@ -289,7 +292,8 @@ def sub_category_add(request):
             main_category = get_object_or_404(
                 Main_Category, id=request.POST.get('main_category'))
             sub_category = Sub_Category.objects.create(
-                name=request.POST.get('name'),
+                english_name=request.POST.get('english_name'),
+                arabic_name=request.POST.get('arabic_name'),
                 main_category=main_category
             )
             if request.FILES.get('image'):
@@ -312,7 +316,8 @@ def sub_category_edit(request, id):
             main_category = get_object_or_404(
                 Main_Category, id=request.POST.get('main_category'))
 
-            sub_category.name = request.POST.get('name')
+            sub_category.english_name = request.POST.get('english_name')
+            sub_category.arabic_name = request.POST.get('arabic_name')
             sub_category.main_category = main_category
 
             if request.FILES.get('image'):
@@ -693,6 +698,7 @@ def donation_view(request, id):
     return render(request, 'cpanel/Donations/donation_view.html', context)
 
 
+# Authentication views
 def login_view(request):
     if not request.user.is_authenticated:
         form = AuthenticationForm()
@@ -719,19 +725,25 @@ def login_view(request):
 
 def lock_screen(request):
     form = AuthenticationForm()
-    if request.method == 'GET':
-        logout(request)
+    context = {
+        'user': request.user,
+        'form': form
+    }
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
+            user = form.get_user()
             login(request, user)
             return redirect('cpanel:dashboard')
+        else:
+            return redirect('login')
 
-    context = {
-        'form': form
-    }
-    return render(request, 'cpanel/Auth/lock-screen.html', context)
+    if request.user.is_authenticated:
+        logout(request)
+        return render(request, 'cpanel/Auth/lock-screen.html', context)
+    else:
+        return redirect('login')
 
 
 def logout_view(request):

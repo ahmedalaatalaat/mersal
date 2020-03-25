@@ -93,7 +93,8 @@ class Donor(models.Model):
 
 class Main_Category(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=32)
+    english_name = models.CharField(max_length=32)
+    arabic_name = models.CharField(max_length=32, default="")
     image = models.ImageField(
         default='img/Categories/category.png', upload_to='img/Categories')
 
@@ -110,13 +111,13 @@ class Sub_Category(models.Model):
     id = models.AutoField(primary_key=True)
     main_category = models.ForeignKey(
         Main_Category, on_delete=models.DO_NOTHING)
-    name = models.CharField(max_length=32)
+    english_name = models.CharField(max_length=32)
+    arabic_name = models.CharField(max_length=32, default="")
     image = models.ImageField(
         default='img/Categories/category.png', upload_to='img/Categories')
 
     class Meta:
         ordering = ['id']
-        unique_together = (('main_category', 'name'),)
         verbose_name = "Sub_Category"
         verbose_name_plural = "Sub_Categories"
 

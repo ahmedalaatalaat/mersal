@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from main.utils import get_object_or_none
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.models import User
@@ -6,9 +6,14 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import *
 from .from_excel import *
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 # Main Pages
+@login_required(login_url='ar_login')
 def dashboard(request):
     context = {
         'title': 'Dashboard',
@@ -16,6 +21,7 @@ def dashboard(request):
     return render(request, 'cpanel/base-rtl.html', context)
 
 
+@login_required(login_url='ar_login')
 def mainRTL(request):
     context = {
         'title': 'BaseRTL',
@@ -24,6 +30,7 @@ def mainRTL(request):
 
 
 # Case Views
+@login_required(login_url='ar_login')
 def case_add(request):
     # Add data
     if request.is_ajax():
@@ -51,6 +58,7 @@ def case_add(request):
     return render(request, 'cpanel/cases/case_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def case_edit(request, id):
     # get data
     case = get_object_or_404(Case, case_id=id)
@@ -74,6 +82,7 @@ def case_edit(request, id):
     return render(request, 'cpanel/cases/case_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def case_list(request):
     cases = Case.objects.all()
 
@@ -110,11 +119,8 @@ def case_list(request):
     return render(request, 'cpanel/cases/case_list_ar.html', context)
 
 
-def inputs(request):
-    return render(request, 'cpanel/inputs.html')
-
-
 # Project Views
+@login_required(login_url='ar_login')
 def project_add(request):
     # Add data
     if request.is_ajax():
@@ -138,6 +144,7 @@ def project_add(request):
     return render(request, 'cpanel/projects/project_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def project_edit(request, id):
     # get data
     project = get_object_or_404(Project, project_id=id)
@@ -161,6 +168,7 @@ def project_edit(request, id):
     return render(request, 'cpanel/projects/project_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def project_list(request):
     projects = Project.objects.all()
 
@@ -199,12 +207,14 @@ def project_list(request):
 
 
 # Main Category Views
+@login_required(login_url='ar_login')
 def main_category_add(request):
     # Add data
     if request.is_ajax():
         if request.method == 'POST':
             main_category = Main_Category.objects.create(
-                name=request.POST.get('name')
+                english_name=request.POST.get('english_name'),
+                arabic_name=request.POST.get('arabic_name')
             )
             if request.FILES.get('image'):
                 main_category.image = request.FILES.get('image')
@@ -216,11 +226,14 @@ def main_category_add(request):
     return render(request, 'cpanel/Main Category/main_category_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def main_category_edit(request, id):
     main_category = get_object_or_404(Main_Category, id=id)
     if request.is_ajax():
         if request.method == 'POST':
-            main_category.name = request.POST.get('name')
+            main_category.english_name = request.POST.get('english_name')
+            main_category.arabic_name = request.POST.get('arabic_name')
+
             if request.FILES.get('image'):
                 main_category.image = request.FILES.get('image')
 
@@ -233,6 +246,7 @@ def main_category_edit(request, id):
     return render(request, 'cpanel/Main Category/main_category_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def main_category_list(request):
     main_categories = Main_Category.objects.all()
 
@@ -268,6 +282,7 @@ def main_category_list(request):
 
 
 # Sub Category Views
+@login_required(login_url='ar_login')
 def sub_category_add(request):
     main_categories = Main_Category.objects.all()
     # Add data
@@ -276,7 +291,8 @@ def sub_category_add(request):
             main_category = get_object_or_404(
                 Main_Category, id=request.POST.get('main_category'))
             sub_category = Sub_Category.objects.create(
-                name=request.POST.get('name'),
+                english_name=request.POST.get('english_name'),
+                arabic_name=request.POST.get('arabic_name'),
                 main_category=main_category
             )
             if request.FILES.get('image'):
@@ -290,6 +306,7 @@ def sub_category_add(request):
     return render(request, 'cpanel/Sub Category/sub_category_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def sub_category_edit(request, id):
     main_categories = Main_Category.objects.all()
     sub_category = get_object_or_404(Sub_Category, id=id)
@@ -298,7 +315,8 @@ def sub_category_edit(request, id):
             main_category = get_object_or_404(
                 Main_Category, id=request.POST.get('main_category'))
 
-            sub_category.name = request.POST.get('name')
+            sub_category.english_name = request.POST.get('english_name')
+            sub_category.arabic_name = request.POST.get('arabic_name')
             sub_category.main_category = main_category
 
             if request.FILES.get('image'):
@@ -314,6 +332,7 @@ def sub_category_edit(request, id):
     return render(request, 'cpanel/Sub Category/sub_category_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def sub_category_list(request):
     sub_categories = Sub_Category.objects.all()
 
@@ -350,13 +369,14 @@ def sub_category_list(request):
 
 
 # Agent Views
+@login_required(login_url='ar_login')
 def agent_add(request):
     if request.is_ajax():
         if request.method == 'POST':
             agent = get_object_or_none(
                 User, username=request.POST.get('username'))
             if agent:
-                return HttpResponseBadRequest('This Agent is already exists')
+                return HttpResponseBadRequest('هذا المندوب مسجل بالفعل')
 
             user = User.objects.create_user(
                 username=request.POST.get('username'),
@@ -377,6 +397,7 @@ def agent_add(request):
     return render(request, 'cpanel/Agents/agent_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def agent_edit(request, id):
     agent = get_object_or_404(Agent, id=id)
     if request.is_ajax():
@@ -403,6 +424,7 @@ def agent_edit(request, id):
     return render(request, 'cpanel/Agents/agent_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def agent_list(request):
     agents = Agent.objects.all()
 
@@ -438,13 +460,14 @@ def agent_list(request):
 
 
 # Donor Views
+@login_required(login_url='ar_login')
 def donor_add(request):
     if request.is_ajax():
         if request.method == 'POST':
             donor = get_object_or_none(
                 User, username=request.POST.get('username'))
             if donor:
-                return HttpResponseBadRequest('This Donor is already exists')
+                return HttpResponseBadRequest('هذا المتبرع مسجل بالفعل')
 
             user = User.objects.create_user(
                 username=request.POST.get('username'),
@@ -477,6 +500,7 @@ def donor_add(request):
     return render(request, 'cpanel/Donors/donor_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def donor_edit(request, id):
     donor = get_object_or_404(Donor, id=id)
     if request.is_ajax():
@@ -519,6 +543,7 @@ def donor_edit(request, id):
     return render(request, 'cpanel/Donors/donor_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def donor_list(request):
     donors = Donor.objects.all()
 
@@ -553,6 +578,7 @@ def donor_list(request):
 
 
 # Donation Views
+@login_required(login_url='ar_login')
 def donation_add(request):
     contributions = Contribution.objects.all()
     charitable_activities = Sub_Category.objects.all()
@@ -562,7 +588,7 @@ def donation_add(request):
             user = get_object_or_none(User, username=request.POST.get('donor'))
             donor = get_object_or_none(Donor, user=user)
             if not donor:
-                return HttpResponseBadRequest('This Donor is not exists')
+                return HttpResponseBadRequest('هذا المندوب غير مسجل من قبل')
 
             contribution = get_object_or_none(
                 Contribution, id=request.POST.get('contribution'))
@@ -585,6 +611,7 @@ def donation_add(request):
     return render(request, 'cpanel/Donations/donation_add_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def donation_edit(request, id):
     donation = get_object_or_404(Donation, id=id)
     contributions = Contribution.objects.all()
@@ -611,6 +638,7 @@ def donation_edit(request, id):
     return render(request, 'cpanel/Donations/donation_edit_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def donation_list(request):
     donations = Donation.objects.all()
 
@@ -645,6 +673,7 @@ def donation_list(request):
     return render(request, 'cpanel/Donations/donation_list_ar.html', context)
 
 
+@login_required(login_url='ar_login')
 def donation_view(request, id):
     donation = get_object_or_404(Donation, id=id)
     agents = Agent.objects.all()
@@ -668,12 +697,55 @@ def donation_view(request, id):
     return render(request, 'cpanel/Donations/donation_view_ar.html', context)
 
 
+# Authentication views
 def login_view(request):
-    return render(request, 'cpanel/Auth/login_ar.html')
+    if not request.user.is_authenticated:
+        form = AuthenticationForm()
+        print(request.POST)
+        print(form.errors)
+        error = False
+        if request.method == 'POST':
+            form = AuthenticationForm(data=request.POST)
+            print(form.is_valid())
+            if form.is_valid():
+                user = form.get_user()
+                if not user.is_staff:
+                    error = True
+                else:
+                    login(request, user)
+                    if request.GET.get('next'):
+                        return redirect(request.GET.get('next'))
+                    return redirect('cpanel:ar_dashboard')
+        context = {
+            'form': form,
+            'error': error
+        }
+        return render(request, 'cpanel/Auth/login_ar.html', context)
+    else:
+        return redirect('cpanel:ar_dashboard')
 
 
 def lock_screen(request):
-    return render(request, 'cpanel/Auth/lock-screen_ar.html')
+    form = AuthenticationForm()
+    context = {
+        'user': request.user,
+        'form': form
+    }
+
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('cpanel:ar_dashboard')
+        else:
+            return redirect('ar_login')
+
+    if request.user.is_authenticated:
+        logout(request)
+        return render(request, 'cpanel/Auth/lock-screen_ar.html', context)
+    else:
+        return redirect('ar_login')
 
 
 def logout_view(request):

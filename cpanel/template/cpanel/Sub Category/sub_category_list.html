@@ -80,12 +80,12 @@
                                 <td>
                                     <img class="rounded-circle avatar-xs" src="{{sub_category.image.url}}" style="display: inline">
                                     <h5 class="font-size-14 mb-1" style="display: inline">
-                                        {{sub_category.name}}
+                                        {{sub_category.english_name}}
                                     </h5>
                                 </td>
                                 <td>
                                     <h5 class="font-size-14 mb-1" style="display: inline">
-                                        {{sub_category.main_category.name}}
+                                        {{sub_category.main_category.english_name}}
                                     </h5>
                                 </td>
                                 <td>
@@ -96,12 +96,14 @@
                                                 </i>
                                             </a>
                                         </li>
+                                        {% if user.is_superuser %}
                                         <li class="list-inline-item px-2">
                                             <a data-placement="top" data-toggle="tooltip" onclick="delete_item({{sub_category.id}})" title="" data-original-title="Delete">
                                                 <i class="bx bx-trash">
                                                 </i>
                                             </a>
                                         </li>
+                                        {% endif %}
                                     </ul>
                                 </td>
                             </tr>

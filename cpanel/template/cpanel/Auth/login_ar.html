@@ -1,100 +1,123 @@
 {% load staticfiles %}
 <!DOCTYPE doctype html>
 <html>
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Login | Mersal
-  </title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-   <meta content="DSC Akhbar Alyoum Academy" name="author"/>
-   <!-- App favicon -->
-   <link href="{% static 'cpanel/images/favicon.png' %}" rel="shortcut icon"/>
-   <!-- Bootstrap Css -->
-   <link href="{% static 'cpanel/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css">
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        Login | Mersal
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="DSC Akhbar Alyoum Academy" name="author" />
+    <!-- App favicon -->
+    <link href="{% static 'cpanel/images/favicon.png' %}" rel="shortcut icon" />
+    <!-- Bootstrap Css -->
+    <link href="{% static 'cpanel/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css">
     <!-- Icons Css -->
-    <link href="{% static 'cpanel/css/icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'cpanel/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{% static 'cpanel/css/app-rtl.min.css' %}" id="app-style" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'cpanel/css/app-rtl.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
     <style>
         html {
             font-size: large;
         }
     </style>
- </head>
- <body>
-  <div class="home-btn d-none d-sm-block">
-   <a class="text-dark btn" onclick="(window.location.href=window.location.origin)">
-    <img src="{% static 'cpanel/images/flags/us.jpg' %}" alt="user-image" class="mr-1" height="18">
-   </a>
-  </div>
-  <div class="account-pages my-5 pt-sm-5">
-   <div class="container">
-    <div class="row justify-content-center">
-     <div class="col-md-8 col-lg-6 col-xl-5">
-      <div class="card overflow-hidden">
-       <div class="bg-soft-primary">
-        <div class="row">
-         <div class="col-7">
-          <div class="text-primary p-4">
-           <h5 class="text-primary">
-            أهلا بك مجددا !
-           </h5>
-           <p>
-            تسجيل الدخول الي مرسال
-           </p>
-          </div>
-         </div>
-         <div class="col-5 align-self-end">
-          <img alt="" class="img-fluid" src="{% static 'cpanel/images/profile-img.png' %}">
-         </div>
-        </div>
-       </div>
-       <div class="card-body pt-0">
-        <div>
-         <a>
-          <div class="avatar-md profile-user-wid mb-4">
-           <span class="avatar-title rounded-circle bg-light">
-            <img alt=""  height="34" src="{% static 'cpanel/images/logo/logo-sm.png' %}"/>
-           </span>
-          </div>
-         </a>
-        </div>
-        <div class="p-2">
-         <form method="POST" class="form-horizontal"> {% csrf_token %}
-          <div class="form-group">
-           <label for="username">
-            اسم المستخدم
-           </label>
-           <input class="form-control" id="username" placeholder="ادخل اسم المستخدم" type="text"/>
-          </div>
-          <div class="form-group">
-           <label for="userpassword">
-            كلمة المرور
-           </label>
-           <input class="form-control" id="userpassword" placeholder="ادخل كلمة المرور" type="password"/>
-          </div>
-          <div class="mt-3">
-           <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">
-            تسجيل الدخول
-           </button>
-          </div>
-         </form>
-        </div>
-       </div>
-      </div>
-      <div class="mt-5 text-center">
-       <p>
-        © 2020 Mersal. Crafted with
-        <i class="mdi mdi-heart text-danger">
-        </i>
-        by DSC Akhbar El youm Academy
-       </p>
-      </div>
-     </div>
-    </div>
-   </div>
-  </div>
+</head>
 
- </body>
+<body>
+    <div class="home-btn d-none d-sm-block">
+        <a class="text-dark btn" onclick="(window.location.href=window.location.origin)">
+            <img src="{% static 'cpanel/images/flags/us.jpg' %}" alt="user-image" class="mr-1" height="18">
+        </a>
+    </div>
+    <div class="account-pages my-5 pt-sm-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card overflow-hidden">
+                        <div class="bg-soft-primary">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="text-primary p-4">
+                                        <h5 class="text-primary">
+                                            أهلا بك مجددا !
+                                        </h5>
+                                        <p>
+                                            تسجيل الدخول الي مرسال
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-5 align-self-end">
+                                    <img alt="" class="img-fluid" src="{% static 'cpanel/images/profile-img.png' %}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div>
+                                <a>
+                                    <div class="avatar-md profile-user-wid mb-4">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img alt="" height="34" src="{% static 'cpanel/images/logo/logo-sm.png' %}" />
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <form method="POST" class="form-horizontal"> {% csrf_token %}
+                                    {% if form.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        خطأ في اسم المستخدم او كلمة المرور
+                                        <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                                            <span aria-hidden="true">
+                                                ×
+                                            </span>
+                                        </button>
+                                    </div>
+                                    {% elif error %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        Wrong username or/and password
+                                        <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                                            <span aria-hidden="true">
+                                                ×
+                                            </span>
+                                        </button>
+                                    </div>
+                                    {% endif %}
+                                    <div class="form-group">
+                                        <label for="username">
+                                            اسم المستخدم
+                                        </label>
+                                        <input class="form-control" id="username" placeholder="ادخل اسم المستخدم" type="text" name="username" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userpassword">
+                                            كلمة المرور
+                                        </label>
+                                        <input class="form-control" id="userpassword" placeholder="ادخل كلمة المرور" type="password" required name="password" />
+                                    </div>
+                                    <div class="mt-3">
+                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">
+                                            تسجيل الدخول
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <p>
+                            © 2020 Mersal. Crafted with
+                            <i class="mdi mdi-heart text-danger">
+                            </i>
+                            by DSC Akhbar El youm Academy
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'cpanel/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'cpanel/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
 </html>
