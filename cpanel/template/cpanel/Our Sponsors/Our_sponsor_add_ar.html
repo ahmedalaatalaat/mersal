@@ -1,0 +1,75 @@
+{% extends "cpanel/base-rtl.html" %}
+{% load myTags %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">
+                اضافة راعي رسمي
+            </h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_dashboard' %}">
+                            لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cpanel:ar_our_sponsor_list' %}">
+                            قائمة الرعاه الرسميين
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        اضافة راعي رسمي
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    اضافة بيانات راعي رسمي
+                </h4>
+                <br />
+                <form method="POST" enctype="multipart/form-data" class="custom-validation" id="add_form"> {% csrf_token %}
+                    <!-- Your Field Goes Here -->
+                    <div class="form-group">
+                        <label>
+                            الاسم
+                        </label>
+                        <input class="form-control" placeholder="الاسم" required="" type="text" name='name' maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            الصورة
+                        </label>
+                        <div class="custom-file">
+                            <input class="custom-file-input form-control" id="customFile" type="file" onchange="image_upload()" accept="image/*" name="image" data-parsley-trigger="change">
+                            <label class="custom-file-label" for="customFile" id="image_label">
+                                اختر الصورة
+                            </label>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group mb-0 text-center">
+                        <div>
+                            <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                حفظ
+                            </button>
+                            <button class="btn btn-secondary waves-effect" type="reset">
+                                الغاء
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

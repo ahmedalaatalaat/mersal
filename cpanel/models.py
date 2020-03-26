@@ -104,7 +104,7 @@ class Main_Category(models.Model):
         verbose_name_plural = "Main_Categories"
 
     def __str__(self):
-        return str(self.name)
+        return str(self.english_name)
 
 
 class Sub_Category(models.Model):
@@ -122,7 +122,7 @@ class Sub_Category(models.Model):
         verbose_name_plural = "Sub_Categories"
 
     def __str__(self):
-        return str(self.name)
+        return str(self.english_name)
 
 
 class Agent(models.Model):
@@ -209,3 +209,27 @@ class Donation(models.Model):
             'العنوان_2': self.donor.address_2
         }
         return address
+
+
+class Slider_Image(models.Model):
+    name = models.CharField(max_length=32)
+    image = models.ImageField()
+
+    class Meta:
+        verbose_name = "Slider_Image"
+        verbose_name_plural = "Slider_Images"
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Our_Sponsor(models.Model):
+    name = models.CharField(max_length=32)
+    image = models.ImageField()
+
+    class Meta:
+        verbose_name = "Our_Sponsor"
+        verbose_name_plural = "Our_Sponsors"
+
+    def __str__(self):
+        return str(self.name)

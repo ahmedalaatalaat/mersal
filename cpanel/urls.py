@@ -59,6 +59,20 @@ urlpatterns = [
     path('ar/donation_edit/<id>/', views_ar.donation_edit, name="ar_donation_edit"),
     path('ar/donations/', views_ar.donation_list, name="ar_donation_list"),
     path('ar/donation_view/<id>/', views_ar.donation_view, name="ar_donation_view"),
+    # Our Sponsor
+    path('our_sponsor_add/', views_en.our_sponsor_add, name="our_sponsor_add"),
+    path('our_sponsor_edit/<id>/', views_en.our_sponsor_edit, name="our_sponsor_edit"),
+    path('our_sponsors/', views_en.our_sponsor_list, name="our_sponsor_list"),
+    path('ar/our_sponsor_add/', views_ar.our_sponsor_add, name="ar_our_sponsor_add"),
+    path('ar/our_sponsor_edit/<id>/', views_ar.our_sponsor_edit, name="ar_our_sponsor_edit"),
+    path('ar/our_sponsors/', views_ar.our_sponsor_list, name="ar_our_sponsor_list"),
+    # Slider Image
+    path('slider_image_add/', views_en.slider_image_add, name="slider_image_add"),
+    path('slider_image_edit/<id>/', views_en.slider_image_edit, name="slider_image_edit"),
+    path('slider_images/', views_en.slider_image_list, name="slider_image_list"),
+    path('ar/slider_image_add/', views_ar.slider_image_add, name="ar_slider_image_add"),
+    path('ar/slider_image_edit/<id>/', views_ar.slider_image_edit, name="ar_slider_image_edit"),
+    path('ar/slider_images/', views_ar.slider_image_list, name="ar_slider_image_list"),
     # Auth
     path('lock_screen/', views_en.lock_screen, name="lock_screen"),
     path('ar/lock_screen/', views_ar.lock_screen, name="ar_lock_screen"),

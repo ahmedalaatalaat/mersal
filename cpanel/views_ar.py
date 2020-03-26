@@ -781,3 +781,141 @@ def lock_screen(request):
 def logout_view(request):
     logout(request)
     return redirect('ar_login')
+
+
+# Slider Image Views
+@login_required(login_url='ar_login')
+def slider_image_add(request):
+    # Add data
+    if request.is_ajax():
+        if request.method == 'POST':
+            slider_image = Slider_Image.objects.create(
+                name=request.POST.get('name')
+            )
+            if request.FILES.get('image'):
+                slider_image.image = request.FILES.get('image')
+                slider_image.save()
+
+    context = {
+        'title': 'Slider Image Add',
+    }
+    return render(request, 'cpanel/Slider Image/slider_image_add_ar.html', context)
+
+
+@login_required(login_url='ar_login')
+def slider_image_edit(request, id):
+    slider_image = get_object_or_404(Slider_Image, id=id)
+    if request.is_ajax():
+        if request.method == 'POST':
+            slider_image.name = request.POST.get('name')
+
+            if request.FILES.get('image'):
+                slider_image.image = request.FILES.get('image')
+
+            slider_image.save()
+
+    context = {
+        'title': 'Slider Image Edit',
+        'slider': slider_image
+    }
+    return render(request, 'cpanel/Slider Image/slider_image_edit_ar.html', context)
+
+
+@login_required(login_url='ar_login')
+def slider_image_list(request):
+    slider_images = Slider_Image.objects.all()
+    print(slider_images)
+    # Delete
+    if request.is_ajax():
+        if request.method == 'POST':
+            get_object_or_none(
+                Slider_Image, id=request.POST.get('id')).delete()
+
+    # Search
+    if request.method == 'GET':
+        query = request.GET.get('search')
+        if query:
+            slider_images = slider_images.filter(
+                Q(id__icontains=query) |
+                Q(name__icontains=query)).distinct()
+
+    # Pagination
+    slider_images_pages = Paginator(slider_images, 20)
+    slider_images = slider_images_pages.get_page(request.GET.get('page'))
+    current_page = request.GET.get('page') if request.GET.get('page') else 1
+    context = {
+        'title': 'Slider Images List',
+        'slider_images': slider_images,
+        'pages': str(slider_images_pages.num_pages),
+        'current_page': str(current_page)
+    }
+    return render(request, 'cpanel/Slider Image/slider_image_list_ar.html', context)
+
+
+# Our Sponsors Views
+@login_required(login_url='ar_login')
+def our_sponsor_add(request):
+    # Add data
+    if request.is_ajax():
+        if request.method == 'POST':
+            our_sponsor = Our_Sponsor.objects.create(
+                name=request.POST.get('name')
+            )
+            if request.FILES.get('image'):
+                our_sponsor.image = request.FILES.get('image')
+                our_sponsor.save()
+
+    context = {
+        'title': 'Our Sponsor Add',
+    }
+    return render(request, 'cpanel/Our Sponsors/our_sponsor_add_ar.html', context)
+
+
+@login_required(login_url='ar_login')
+def our_sponsor_edit(request, id):
+    our_sponsor = get_object_or_404(Our_Sponsor, id=id)
+    if request.is_ajax():
+        if request.method == 'POST':
+            our_sponsor.name = request.POST.get('name')
+
+            if request.FILES.get('image'):
+                our_sponsor.image = request.FILES.get('image')
+
+            our_sponsor.save()
+
+    context = {
+        'title': 'Our Sponsor Edit',
+        'slider': our_sponsor
+    }
+    return render(request, 'cpanel/Our Sponsors/our_sponsor_edit_ar.html', context)
+
+
+@login_required(login_url='ar_login')
+def our_sponsor_list(request):
+    our_sponsors = Our_Sponsor.objects.all()
+
+    # Delete
+    if request.is_ajax():
+        if request.method == 'POST':
+            get_object_or_none(
+                Our_Sponsor, id=request.POST.get('id')).delete()
+
+    # Search
+    if request.method == 'GET':
+        query = request.GET.get('search')
+        if query:
+            our_sponsors = our_sponsors.filter(
+                Q(id__icontains=query) |
+                Q(name__icontains=query)).distinct()
+
+    # Pagination
+    our_sponsors_pages = Paginator(our_sponsors, 20)
+    our_sponsors = our_sponsors_pages.get_page(request.GET.get('page'))
+    current_page = request.GET.get('page') if request.GET.get('page') else 1
+    context = {
+        'title': 'Slider Images List',
+        'slider_images': our_sponsors,
+        'pages': str(our_sponsors_pages.num_pages),
+        'current_page': str(current_page)
+    }
+    return render(request, 'cpanel/Our Sponsors/our_sponsor_list_ar.html', context)
