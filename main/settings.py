@@ -4,9 +4,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '6kmu&m6q*rq6-nv@r_e*9fv&rwv)v*x*p_tg1!bu80#4n1(0hu'
 
@@ -26,6 +23,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # My Apps
     'cpanel',
+    'api',
+    # Third Party Apps
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +119,6 @@ STATICFILES_DIRS = [  # put all you static files dirs in here that i deal with n
 # To make the static that server manage them
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_root")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_root")
+
+
+LOGIN_URL = 'login'

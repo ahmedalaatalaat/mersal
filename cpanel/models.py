@@ -43,19 +43,6 @@ class Project(models.Model):
         return str(self.name)
 
 
-class Case(models.Model):
-    case_id = models.OneToOneField(Contribution, on_delete=models.CASCADE)
-    code = models.CharField(max_length=64, unique=True)
-
-    class Meta:
-        ordering = ['id']
-        verbose_name = "Case"
-        verbose_name_plural = "Cases"
-
-    def __str__(self):
-        return str(self.code)
-
-
 class Donor(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
@@ -125,6 +112,20 @@ class Sub_Category(models.Model):
         return str(self.english_name)
 
 
+class Case(models.Model):
+    case_id = models.OneToOneField(Contribution, on_delete=models.CASCADE)
+    code = models.CharField(max_length=64, unique=True)
+    sub_category = models.ForeignKey(Sub_Category, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = "Case"
+        verbose_name_plural = "Cases"
+
+    def __str__(self):
+        return str(self.code)
+
+
 class Agent(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -156,11 +157,15 @@ class Donation(models.Model):
     collected = models.BooleanField(default=False)
 
     class Meta:
+        ordering = ['date']
         verbose_name = "Donation"
         verbose_name_plural = "Donations"
 
     def __str__(self):
-        return str(self.donor.name)
+        try:
+            return str(self.donor.name)
+        except Exception:
+            return str(self.id)
 
     @property
     def get_address(self):

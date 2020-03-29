@@ -54,6 +54,18 @@
                     </div>
                     <div class="form-group">
                         <label>
+                            نشاط التبرع
+                        </label>
+                        <select class="form-control" name="sub_category">
+                            {% for charitable_activity in charitable_activities %}
+                            <option value="{{charitable_activity.id}}">
+                                {{charitable_activity.arabic_name}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
                             الوصف
                         </label>
                         <div>

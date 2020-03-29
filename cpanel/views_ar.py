@@ -60,59 +60,72 @@ def profile(request):
 
 
 # Case Views
-@login_required(login_url='ar_login')
+@login_required(login_url='login')
 def case_add(request):
+    charitable_activities = Sub_Category.objects.all()
+
     # Add data
     if request.is_ajax():
         if request.method == 'POST':
             case = get_object_or_none(Case, code=request.POST.get('code'))
             if case:
-                return HttpResponseBadRequest('هذة الحالة مسجلة بالفعل')
+                return HttpResponseBadRequest('This Case is already exists')
 
             is_urgent = True if request.POST.get(
                 'is_urgent') == 'on' else False
+
+            sub_category = get_object_or_404(Sub_Category, id=request.POST.get('sub_category'))
 
             contribution = Contribution.objects.create(
                 amount=request.POST.get('amount'),
                 description=request.POST.get('description'),
                 is_urgent=is_urgent,
             )
+
             Case.objects.create(
                 case_id=contribution,
                 code=request.POST.get('code'),
+                sub_category=sub_category,
             )
 
     context = {
-        'title': 'Add Case'
+        'title': 'Add Case',
+        'charitable_activities': charitable_activities
     }
     return render(request, 'cpanel/cases/case_add_ar.html', context)
 
 
-@login_required(login_url='ar_login')
+@login_required(login_url='login')
 def case_edit(request, id):
     # get data
+    charitable_activities = Sub_Category.objects.all()
     case = get_object_or_404(Case, case_id=id)
     contribution = get_object_or_404(Contribution, id=id)
 
     # Save new data
     if request.is_ajax():
         if request.method == 'POST':
+            sub_category = get_object_or_404(Sub_Category, id=request.POST.get('sub_category'))
             is_urgent = True if request.POST.get(
                 'is_urgent') == 'on' else False
+
             contribution.amount = request.POST.get('amount')
             contribution.description = request.POST.get('description')
             contribution.is_urgent = is_urgent
+            case.sub_category = sub_category
 
+            case.save()
             contribution.save()
 
     context = {
         'title': 'Edit Case',
+        'charitable_activities': charitable_activities,
         'case': case
     }
     return render(request, 'cpanel/cases/case_edit_ar.html', context)
 
 
-@login_required(login_url='ar_login')
+@login_required(login_url='login')
 def case_list(request):
     cases = Case.objects.all()
 
@@ -731,12 +744,9 @@ def donation_view(request, id):
 def login_view(request):
     if not request.user.is_authenticated:
         form = AuthenticationForm()
-        print(request.POST)
-        print(form.errors)
         error = False
         if request.method == 'POST':
             form = AuthenticationForm(data=request.POST)
-            print(form.is_valid())
             if form.is_valid():
                 user = form.get_user()
                 if not user.is_staff:
@@ -824,7 +834,6 @@ def slider_image_edit(request, id):
 @login_required(login_url='ar_login')
 def slider_image_list(request):
     slider_images = Slider_Image.objects.all()
-    print(slider_images)
     # Delete
     if request.is_ajax():
         if request.method == 'POST':

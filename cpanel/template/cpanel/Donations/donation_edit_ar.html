@@ -70,11 +70,11 @@
                             {% for charitable_activity in charitable_activities %}
                             {% if donation.charitable_activity.id == charitable_activity.id %}
                             <option value="{{charitable_activity.id}}" selected>
-                                {{charitable_activity.name}}
+                                {{charitable_activity.arabic_name}}
                             </option>
                             {% else %}
                             <option value="{{charitable_activity.id}}">
-                                {{charitable_activity.name}}
+                                {{charitable_activity.arabic_name}}
                             </option>
                             {% endif %}
                             {% endfor %}

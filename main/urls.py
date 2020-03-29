@@ -12,6 +12,7 @@ urlpatterns = [
     path('cpanel/', include('cpanel.urls')),
     path('', login_en, name="login"),
     path('ar/', login_ar, name="ar_login"),
+    path('api/', include('api.urls'))
 ]
 
 if settings.DEBUG:

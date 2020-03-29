@@ -54,6 +54,24 @@
                     </div>
                     <div class="form-group">
                         <label>
+                            النشاط الخيري
+                        </label>
+                        <select class="form-control" name="sub_category">
+                            {% for charitable_activity in charitable_activities %}
+                            {% if case.sub_category.id == charitable_activity.id %}
+                            <option value="{{charitable_activity.id}}" selected>
+                                {{charitable_activity.arabic_name}}
+                            </option>
+                            {% else %}
+                            <option value="{{charitable_activity.id}}">
+                                {{charitable_activity.arabic_name}}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
                             الوصف
                         </label>
                         <div>
