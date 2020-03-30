@@ -113,7 +113,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [  # put all you static files dirs in here that i deal with not the server
-    os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, 'cpanel/static')
 ]
 
