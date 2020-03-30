@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from main.utils import get_object_or_none
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -7,10 +8,32 @@ from .serializers import *
 from django.contrib.auth.models import User
 from cpanel.models import *
 from django.db.models import Q
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+
+
+class TokenView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        token = get_object_or_none(Token, user=user)
+        if not token:
+            token = Token.objects.create(user=user)
+
+        data = {
+            'token': token.key
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # Users view
 class UserView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all users
@@ -35,6 +58,9 @@ class UserView(APIView):
 
 
 class UserDetailView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, username):
         '''
         get specific user data
@@ -72,6 +98,9 @@ class UserDetailView(APIView):
 
 # Login and Registration view
 class LoginRegistrationView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         Login function
@@ -106,6 +135,9 @@ class LoginRegistrationView(APIView):
 
 # Donors View
 class DonorView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all the donors
@@ -118,6 +150,9 @@ class DonorView(APIView):
 
 
 class DonorDetailView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, username):
         '''
         get specific donor
@@ -146,6 +181,9 @@ class DonorDetailView(APIView):
 
 # Slider Images views
 class SliderImageView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get slider images
@@ -159,6 +197,9 @@ class SliderImageView(APIView):
 
 # Sub Category views
 class SubCategoryView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get sub category
@@ -171,6 +212,9 @@ class SubCategoryView(APIView):
 
 
 class ProjectView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get projects
@@ -196,6 +240,9 @@ class ProjectView(APIView):
 
 
 class UrgentProjectView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all urgent cases
@@ -219,6 +266,9 @@ class UrgentProjectView(APIView):
 
 
 class SponsorView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get sub category
@@ -231,6 +281,9 @@ class SponsorView(APIView):
 
 
 class MersalNumbersView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         mersal numbers
@@ -246,6 +299,9 @@ class MersalNumbersView(APIView):
 
 
 class CaseView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all cases
@@ -269,6 +325,9 @@ class CaseView(APIView):
 
 
 class UrgentCaseView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all urgent cases
@@ -292,6 +351,9 @@ class UrgentCaseView(APIView):
 
 
 class CaseByCategory(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id):
         '''
         get cases by category
@@ -315,6 +377,9 @@ class CaseByCategory(APIView):
 
 
 class DonationView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         '''
         get all Donations
@@ -350,6 +415,9 @@ class DonationView(APIView):
 
 
 class DonationDetailView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, username):
         '''
         get all donations for a specific donor

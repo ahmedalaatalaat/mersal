@@ -21,9 +21,10 @@ $('#add_form').submit(function (e) {
             error: function (error_data) {
                 var message = error_data.responseText
                 if ((window.location.href).includes('/ar')) {
-                    $.growl.error({ title: "Error Notice", message: message, location: tl });
+                    $.growl.error({ title: "إشعار بخطأ", message: message, location: 'tl' });
+                } else{
+                    $.growl.error({ title: "Error Notice", message: message });
                 }
-                $.growl.error({ title: "Error Notice", message: message });
             }
         });
     }

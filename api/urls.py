@@ -4,8 +4,9 @@ from . import views
 
 app_name = 'api'
 urlpatterns = [
-    path('users/', views.UserView.as_view(), name='users'),
-    path('user/<username>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('token/<username>/', login_required(views.TokenView.as_view()), name='token'),
+    path('users/', login_required(views.UserView.as_view()), name='users'),
+    path('user/<username>/', login_required(views.UserDetailView.as_view()), name='user_detail'),
     path('login_registration/', views.LoginRegistrationView.as_view(), name='login_registration'),
     path('donors/', views.DonorView.as_view(), name='donors'),
     path('donor/<username>/', views.DonorDetailView.as_view(), name='donor'),
