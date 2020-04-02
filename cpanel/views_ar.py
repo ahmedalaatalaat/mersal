@@ -147,7 +147,7 @@ def case_list(request):
 
     # Import from excel
     if request.method == 'POST':
-        import_cases()  # handel excel files
+        import_cases(request.FILES.get('file'))  # handel excel files
 
     # Pagination
     cases_pages = Paginator(cases, 20)

@@ -117,12 +117,14 @@
                                                 </i>
                                             </a>
                                         </li>
+                                        {% if user.is_superuser %}
                                         <li class="list-inline-item px-2">
                                             <a data-placement="top" data-toggle="tooltip" onclick="delete_item({{donation.id}})" title="" data-original-title="Delete">
                                                 <i class="bx bx-trash">
                                                 </i>
                                             </a>
                                         </li>
+                                        {% endif %}
                                         <li class="list-inline-item px-2">
                                             <a data-placement="top" data-toggle="tooltip" href="{% url 'cpanel:donation_view' donation.id %}" title="" data-original-title="View">
                                                 <i class="bx bx-show-alt">
