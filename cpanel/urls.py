@@ -4,8 +4,9 @@ from . import views_en, views_ar
 app_name = 'cpanel'
 
 urlpatterns = [
-    # path('', views_en.main, name="main"),
-    # path('ar/', views_ar.mainRTL, name="mainrtl"),
+    # Error
+    path('error_500/', views_en.error_500, name="error_500"),
+    # Dashboard
     path('', views_en.dashboard, name="dashboard"),
     path('ar/', views_ar.dashboard, name="ar_dashboard"),
     # Cases
