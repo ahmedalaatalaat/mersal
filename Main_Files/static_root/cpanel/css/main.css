@@ -1,0 +1,27 @@
+@font-face {
+    font-family: Almarai-Bold;
+    src: url('../fonts/arabic/Almarai-Bold.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Almarai-Regular;
+    src: url('../fonts/arabic/Almarai-Regular.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lalezar-Regular;
+    src: url('../fonts/arabic/Lalezar-Regular.ttf') format("truetype");
+}
+
+.title_font {
+    font-family: Lalezar-Regular;
+}
+
+.main_font_bold{
+    font-family: Almarai-Bold;
+    font-size: 1em;
+}
+
+.main_font {
+    font-family: Almarai-Regular;
+}
