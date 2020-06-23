@@ -63,7 +63,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     object_link.short_description = u'object'
 
 
-admin.site.register(LogEntry, LogEntryAdmin)
+# admin.site.register(LogEntry, LogEntryAdmin)
 
 admin.site.register(Contribution)
 admin.site.register(Project)

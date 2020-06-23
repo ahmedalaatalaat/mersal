@@ -6,6 +6,7 @@ from cpanel.views_en import login_view as login_en
 from cpanel.views_ar import login_view as login_ar
 from cpanel.views_en import error_400, error_403, error_404, error_500
 from django.conf.urls import handler400, handler403, handler404, handler500
+from .admin import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
